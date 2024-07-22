@@ -1,0 +1,3 @@
+1. npm i --force
+2. Crear tablas e inserts con los comandos de la carpeta database
+3. npm start

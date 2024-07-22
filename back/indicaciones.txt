@@ -1,0 +1,3 @@
+1. cambiar contraseña en la conexión a MySQL
+2. npm i
+3. node app.js
