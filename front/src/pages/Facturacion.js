@@ -3,9 +3,7 @@ import Select from "react-select";
 import "../css/facturacion.css";
 import { useState, useEffect } from "react";
 import {
-  UNSAFE_DataRouterStateContext,
   useNavigate,
-  useParams,
 } from "react-router-dom";
 import axios from "axios";
 //URLS PARA CADA TABLA Y SOLICITUD DE LA BASE DE DATOS
@@ -21,11 +19,9 @@ const URI8 = "http://localhost:5000/detallesFactura/";
 
 const Factura = () => {
   // Estado para controlar si se muestra el modal o no
-  const [selectedOption, setSelectedOption] = useState(null);
   const [showProductos, setShowProductos] = useState(false);
   const [showClientes, setShowClientes] = useState(false);
   const [showModalCantidad, setShowModalCantidad] = useState(false);
-  const [showModalCantidadUpdate, setShowModalCantidadUpdate] = useState(false);
   const [showDetalle, setShowDetalle] = useState(false);
   const [showClienteFactura, setShowClienteFactura] = useState(false);
   const [showBuscadorCedula, setShowBuscadorCedula] = useState(false);
@@ -65,7 +61,7 @@ const Factura = () => {
   const [FacSubTotal, setSubFacTotal] = useState("");
   const [FacIva, setFacIva] = useState("");
   const [detalles, setDetalles] = useState([]);
-const[clientes,setClientes]=useState([]);
+  const [clientes, setClientes] = useState([]);
   useEffect(() => {
     getProductos();
   }, []);
@@ -139,7 +135,7 @@ const[clientes,setClientes]=useState([]);
         FAC_IVA: 0,
         FAC_SUBTOTAL: 0,
         FAC_TOTAL: 0,
-        FAC_METODOPAGO:"Ef",
+        FAC_METODOPAGO: "Ef",
         FAC_FECHA: fechaActualFormateada,
       });
       setShowClientes(true);
@@ -336,9 +332,8 @@ const[clientes,setClientes]=useState([]);
                     <input
                       type="number"
                       id={`cantidad-${detalle.DET_ID}`}
-                      className={`input_cantidad_detalle ${
-                        DetCantidad > detalle.PRO_STOCK ? "input_rojo" : ""
-                      }`}
+                      className={`input_cantidad_detalle ${DetCantidad > detalle.PRO_STOCK ? "input_rojo" : ""
+                        }`}
                       name={`cantidad-${detalle.DET_ID}`}
                       placeholder={detalle.DET_CANTIDAD}
                       min={1}
@@ -405,7 +400,7 @@ const[clientes,setClientes]=useState([]);
             {detalles.map((detalle, index) => (
               <tr key={detalle.DET_ID}>
                 <td> {detalle.DET_CANTIDAD} </td>
-                <td> {detalle.PRO_NOMBRE+": "+detalle.PRO_DESCRIPCION} </td>
+                <td> {detalle.PRO_NOMBRE + ": " + detalle.PRO_DESCRIPCION} </td>
                 <td> ${parseFloat(detalle.PRO_PRECIO).toFixed(2)} </td>
                 <td> ${parseFloat(detalle.DET_PRECIOTOTAL).toFixed(2)} </td>
               </tr>
@@ -422,14 +417,14 @@ const[clientes,setClientes]=useState([]);
       <br />
       {showClientes === false && showProductos === false && (
         <>
-        <div className="container" style={{textAlign:"center"}}>
-        <form onSubmit={facturar} className="product-form" style={{marginTop:"150px",marginBottom:"200px"}}>
-            <button className="custom-button" type="submit">
-              Ingresar Productos al Detalle
-            </button>
-          </form>
-        </div>
-          
+          <div className="container" style={{ textAlign: "center" }}>
+            <form onSubmit={facturar} className="product-form" style={{ marginTop: "150px", marginBottom: "200px" }}>
+              <button className="custom-button" type="submit">
+                Ingresar Productos al Detalle
+              </button>
+            </form>
+          </div>
+
         </>
       )}
       {showClientes === true && (
@@ -439,18 +434,18 @@ const[clientes,setClientes]=useState([]);
           </h1>
           <div className="contenedor_select_boton">
             <Select
-  className="productSelect"
-  isSearchable
-  options={productos
-    .filter((producto) => producto.PRO_STOCK > 0 && producto.PRO_ESTADO === "Activo") // Filtra productos con stock mayor a 0 y estado "ACTIVO"
-    .map((producto) => ({
-      value: producto.PRO_ID,
-      label: `${producto.PRO_NOMBRE} - ${producto.PRO_DESCRIPCION}`,
-    }))
-  }
-  placeholder="Buscar por Producto"
-  onChange={handleProductSelect}
-/>
+              className="productSelect"
+              isSearchable
+              options={productos
+                .filter((producto) => producto.PRO_STOCK > 0 && producto.PRO_ESTADO === "Activo") // Filtra productos con stock mayor a 0 y estado "ACTIVO"
+                .map((producto) => ({
+                  value: producto.PRO_ID,
+                  label: `${producto.PRO_NOMBRE} - ${producto.PRO_DESCRIPCION}`,
+                }))
+              }
+              placeholder="Buscar por Producto"
+              onChange={handleProductSelect}
+            />
             <button
               onClick={() => {
                 setShowClientes(false);
@@ -500,26 +495,26 @@ const[clientes,setClientes]=useState([]);
               <div
                 className="form-group"
                 style={{
-                  
-                 marginTop:"60px",
+
+                  marginTop: "60px",
                   marginLeft: "30%",
-                  marginBottom:"200px",
+                  marginBottom: "200px",
                 }}
               >
                 {" "}
                 <Select
-              className="ClienteSelect"
-              isSearchable
-              options={clientes.map((cliente) => ({
-                value: cliente.CLI_CEDULA,
-                label: cliente.CLI_CEDULA + "---" + cliente.CLI_PRIMERNOMBRE + " "+cliente.CLI_PRIMERAPELLIDO,
-              }))}
-              placeholder="Buscar por cedula"
-              onChange={handleClienteSelect}// Solo pasa la función como manejador de eventos
-            />
+                  className="ClienteSelect"
+                  isSearchable
+                  options={clientes.map((cliente) => ({
+                    value: cliente.CLI_CEDULA,
+                    label: cliente.CLI_CEDULA + "---" + cliente.CLI_PRIMERNOMBRE + " " + cliente.CLI_PRIMERAPELLIDO,
+                  }))}
+                  placeholder="Buscar por cedula"
+                  onChange={handleClienteSelect}// Solo pasa la función como manejador de eventos
+                />
 
 
-               {" "}
+                {" "}
                 <button
                   onClick={() => {
                     getClienteByCedula(localStorage.getItem("cliCedula"));
@@ -542,24 +537,24 @@ const[clientes,setClientes]=useState([]);
       {showClientes === false &&
         showProductos === true &&
         showClienteFactura === true && (
-          
+
           <>
-          <div className="cont-encabezado">
-          <h1 style={{ marginTop: "20px",textAlign:"center" }}>
-          Tienda
-        </h1>
-        <br/>
-        <button
+            <div className="cont-encabezado">
+              <h1 style={{ marginTop: "20px", textAlign: "center" }}>
+                Tienda
+              </h1>
+              <br />
+              <button
                 onClick={() => {
                   updateFactura();
                 }}
                 className="custom-button"
               >
-               
+
                 <i class="fa fa-check" aria-hidden="true"></i>Generar Nota de Venta
               </button>
-              <div className="form-group" style={{textAlign:"center",alignContent:"center"}}>
-          
+              <div className="form-group" style={{ textAlign: "center", alignContent: "center" }}>
+
                 <select
                   id="metodoPago"
                   className="combobox"
@@ -571,32 +566,32 @@ const[clientes,setClientes]=useState([]);
                   <option value="Ef">Efectivo</option>
                   <option value="Tr">Transferencia</option>
                 </select>
-              </div> 
+              </div>
 
-          </div>
-          
-            <div className="factura-diseño"style={{ textAlign: "center" }}>
-            
+            </div>
+
+            <div className="factura-diseño" style={{ textAlign: "center" }}>
+
               <div className="contenedor">
-              <br/>
-              <h4 style={{ textAlign: "right" }}>
-                Número de Nota de Venta: {FacId}
-              </h4>
-              <h4 style={{ textAlign: "right",marginRight:"20px" }}>
-                Fecha: {fechaActualFormateada}{" "}
-              </h4>
-              <br/>
-              <h1 style={{ textAlign: "left" }}>Total: ${parseFloat(FacTotal).toFixed(2)}</h1>
-              
-              <h4 style={{ textAlign: "left" }}>
-                Cliente: {PrimerApellido + " " + PrimerNombre}
-              </h4>
-              <h4 style={{ textAlign: "left" }}>Dirección: {Direccion}</h4>
-              <h4 style={{ textAlign: "left" }}>Teléfono: {Contacto}</h4>
-              <h4 style={{ textAlign: "left" }}>Correo: {Email}</h4>
-              
-              {renderProductoDetalleFactura()
-              }
+                <br />
+                <h4 style={{ textAlign: "right" }}>
+                  Número de Nota de Venta: {FacId}
+                </h4>
+                <h4 style={{ textAlign: "right", marginRight: "20px" }}>
+                  Fecha: {fechaActualFormateada}{" "}
+                </h4>
+                <br />
+                <h1 style={{ textAlign: "left" }}>Total: ${parseFloat(FacTotal).toFixed(2)}</h1>
+
+                <h4 style={{ textAlign: "left" }}>
+                  Cliente: {PrimerApellido + " " + PrimerNombre}
+                </h4>
+                <h4 style={{ textAlign: "left" }}>Dirección: {Direccion}</h4>
+                <h4 style={{ textAlign: "left" }}>Teléfono: {Contacto}</h4>
+                <h4 style={{ textAlign: "left" }}>Correo: {Email}</h4>
+
+                {renderProductoDetalleFactura()
+                }
               </div>
             </div>
           </>
