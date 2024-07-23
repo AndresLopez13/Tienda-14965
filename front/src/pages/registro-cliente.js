@@ -1,5 +1,5 @@
+import { useParams } from "react-router-dom";
 import React, { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
 //URL PARA RECUPERAR LOS DATOS DE LA TABLA CLIENTE DE LA BASE DE DATOS
