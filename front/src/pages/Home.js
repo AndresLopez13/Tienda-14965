@@ -1,8 +1,4 @@
 import React, { useEffect } from "react";
-import frutas from "../imagesHome/frutas.jpeg";
-import verduras from "../imagesHome/verduras.jpeg";
-import tienda from "../imagesHome/tienda.jpeg";
-import { FaHome, FaPhoneAlt, FaEnvelope } from "react-icons/fa";
 const Home = () => {
   useEffect(() => {
     document.title = "HOME";
@@ -31,7 +27,7 @@ const Home = () => {
                                 Inventario <br></br> Tienda
                               </h1>
                               <p>
-                              ¡Explora tus productos favoritos!
+                                ¡Explora tus productos favoritos!
                               </p>
                               <div className="d-flex">
                                 <a
