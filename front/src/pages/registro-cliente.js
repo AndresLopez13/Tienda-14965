@@ -1,8 +1,6 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
-
 
 //URL PARA RECUPERAR LOS DATOS DE LA TABLA CLIENTE DE LA BASE DE DATOS
 const URI = "http://localhost:5000/clientes/";
